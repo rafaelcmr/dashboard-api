@@ -1,24 +1,22 @@
-package io.github.rafaelcmr.domain;
+package io.github.rafaelcmr.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProductDTO {
     private Long id;
     private String description;
     private BigDecimal price;
 
-    public Product() {
+    public ProductDTO() {
     }
 
-    public Product(Long id, String description, BigDecimal price) {
+    public ProductDTO(Long id, String description, BigDecimal price) {
         this.id = id;
+        this.description = description;
+        this.price = price;
+    }
+
+    public ProductDTO(String description, BigDecimal price) {
         this.description = description;
         this.price = price;
     }
@@ -45,14 +43,5 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
     }
 }

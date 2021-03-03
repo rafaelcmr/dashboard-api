@@ -13,7 +13,7 @@ public class DashBoardApiApplication {
     @Bean
     public CommandLineRunner init(@Autowired ClientRepository repository){
         return args -> {
-            repository.save(Client.builder().name("Rafael").cellphone("999999999").build());
+            repository.save(new Client(null, "Rafael", "972880078"));
         };
     }
     public static void main(String[] args) {

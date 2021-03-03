@@ -10,4 +10,6 @@ public interface ClientService {
     Client findByIdOrThrowBadRequestException(Long id);
     List<Client> listAllClients();
     Client saveClient(ClientDTO clientDTO);
+    Client updateClient(ClientDTO clientDTO);
+    void deleteClientById(Long id);
 }

@@ -4,18 +4,19 @@ import io.github.rafaelcmr.domain.Client;
 import io.github.rafaelcmr.dto.ClientDTO;
 import io.github.rafaelcmr.repository.ClientRepository;
 import io.github.rafaelcmr.service.ClientService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientRepository repository;
+    @Autowired
+    private ClientRepository repository;
 
     @Override
     public Client findByIdOrThrowBadRequestException(Long id) {
@@ -26,11 +27,26 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> listAllClients() {
         return repository.findAll();
     }
+
     @Override
+    @Transactional
     public Client saveClient(ClientDTO clientDTO) {
-        return repository.save(Client.builder()
-                .name(clientDTO.getName())
-                .cellphone(clientDTO.getCellphone())
-                .build());
+        Client client = new Client(null, clientDTO.getName(), clientDTO.getCellphone());
+        return repository.save(client);
+    }
+    @Override
+    @Transactional
+    public Client updateClient(ClientDTO clientDTO) {
+
+        Client clientToBeUpdated = findByIdOrThrowBadRequestException(clientDTO.getId());
+        clientToBeUpdated.setName(clientDTO.getName());
+        clientToBeUpdated.setCellphone(clientDTO.getCellphone());
+        return repository.save(clientToBeUpdated);
+    }
+    @Override
+    public void deleteClientById(Long id) {
+//        Client clientToBeDeleted = findByIdOrThrowBadRequestException(id);
+//        repository.delete(clientToBeDeleted);
+        repository.deleteById(id);
     }
 }

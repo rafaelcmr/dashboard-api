@@ -1,17 +1,8 @@
 package io.github.rafaelcmr.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Builder
 public class DemandsProducts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,4 +13,57 @@ public class DemandsProducts {
     @JoinColumn(name = "demand_id")
     @ManyToOne
     private Demand demand;
+    private Long quantity;
+
+    public DemandsProducts() {
+    }
+
+    public DemandsProducts(Long id, Product product, Demand demand, Long quantity) {
+        this.id = id;
+        this.product = product;
+        this.demand = demand;
+        this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Demand getDemand() {
+        return demand;
+    }
+
+    public void setDemand(Demand demand) {
+        this.demand = demand;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "DemandsProducts{" +
+                "id=" + id +
+                ", product=" + product +
+                ", demand=" + demand +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
